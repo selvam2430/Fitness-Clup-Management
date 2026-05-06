@@ -1,32 +1,32 @@
  
 const members = [
-  {id:'M001',name:'Arjun Sharma',plan:'Premium',join:'Jan 15, 2025',expiry:'Jan 14, 2026',status:'active',initials:'AS',color:'#E8FF00'},
-  {id:'M002',name:'Priya Nair',plan:'Standard',join:'Feb 3, 2025',expiry:'Feb 2, 2026',status:'active',initials:'PN',color:'#38BDF8'},
+  {id:'M001',name:'Mathan',plan:'Premium',join:'Jan 15, 2025',expiry:'Jan 14, 2026',status:'active',initials:'AS',color:'#E8FF00'},
+  {id:'M002',name:'Priya',plan:'Standard',join:'Feb 3, 2025',expiry:'Feb 2, 2026',status:'active',initials:'PN',color:'#38BDF8'},
   {id:'M003',name:'Ravi Kumar',plan:'Trial',join:'Apr 28, 2026',expiry:'May 5, 2026',status:'trial',initials:'RK',color:'#FF4D1C'},
-  {id:'M004',name:'Divya Menon',plan:'Premium',join:'Mar 10, 2025',expiry:'Mar 9, 2026',status:'active',initials:'DM',color:'#22C55E'},
-  {id:'M005',name:'Karan Singh',plan:'Standard',join:'Dec 1, 2024',expiry:'Nov 30, 2025',status:'expired',initials:'KS',color:'#888'},
-  {id:'M006',name:'Anjali Rao',plan:'Premium',join:'Apr 1, 2026',expiry:'Mar 31, 2027',status:'active',initials:'AR',color:'#a78bfa'},
-  {id:'M007',name:'Suresh Das',plan:'Standard',join:'Feb 20, 2025',expiry:'Feb 19, 2026',status:'active',initials:'SD',color:'#fb923c'},
-  {id:'M008',name:'Meena Pillai',plan:'Trial',join:'Apr 29, 2026',expiry:'May 6, 2026',status:'trial',initials:'MP',color:'#f472b6'},
+  {id:'M004',name:'Divya',plan:'Premium',join:'Mar 10, 2025',expiry:'Mar 9, 2026',status:'active',initials:'DM',color:'#22C55E'},
+  {id:'M005',name:'Sanjay Kumar',plan:'Standard',join:'Dec 1, 2024',expiry:'Nov 30, 2025',status:'expired',initials:'KS',color:'#888'},
+  {id:'M006',name:'Aron Dhass',plan:'Premium',join:'Apr 1, 2026',expiry:'Mar 31, 2027',status:'active',initials:'AR',color:'#a78bfa'},
+  {id:'M007',name:'Suresh Dev',plan:'Standard',join:'Feb 20, 2025',expiry:'Feb 19, 2026',status:'active',initials:'SD',color:'#fb923c'},
+  {id:'M008',name:'Meena',plan:'Trial',join:'Apr 29, 2026',expiry:'May 6, 2026',status:'trial',initials:'MP',color:'#f472b6'},
 ];
 
 const classes = [
-  {name:'Power Yoga',trainer:'Anita Reddy',time:'06:00',day:'Mon',spots:8,capacity:20,category:'Yoga'},
-  {name:'HIIT Blast',trainer:'Vikram Joshi',time:'07:30',day:'Mon',spots:2,capacity:15,category:'Cardio'},
-  {name:'Zumba Dance',trainer:'Priya Nair',time:'09:00',day:'Tue',spots:12,capacity:25,category:'Dance'},
-  {name:'Strength & Conditioning',trainer:'Rahul Singh',time:'18:00',day:'Wed',spots:5,capacity:12,category:'Strength'},
-  {name:'Pilates Core',trainer:'Sunita Kumar',time:'10:00',day:'Thu',spots:6,capacity:15,category:'Pilates'},
-  {name:'Boxing Basics',trainer:'Arjun Mehta',time:'19:30',day:'Fri',spots:3,capacity:10,category:'Combat'},
-  {name:'Body Pump',trainer:'Vikram Joshi',time:'08:00',day:'Sat',spots:1,capacity:20,category:'Strength'},
-  {name:'Meditation Flow',trainer:'Anita Reddy',time:'07:00',day:'Sun',spots:10,capacity:20,category:'Wellness'},
+  {name:'Power Yoga',trainer:'Anto Dass',time:'06:00',day:'Mon',spots:8,capacity:20,category:'Yoga'},
+  {name:'HIIT Blast',trainer:'Vikram',time:'07:30',day:'Mon',spots:2,capacity:15,category:'Cardio'},
+  {name:'Zumba Dance',trainer:'Joel Mardin',time:'09:00',day:'Tue',spots:12,capacity:25,category:'Dance'},
+  {name:'Strength & Conditioning',trainer:'Adhityan',time:'18:00',day:'Wed',spots:5,capacity:12,category:'Strength'},
+  {name:'Pilates Core',trainer:'Antriv',time:'10:00',day:'Thu',spots:6,capacity:15,category:'Pilates'},
+  {name:'Boxing Basics',trainer:'Sugan Kumar',time:'19:30',day:'Fri',spots:3,capacity:10,category:'Combat'},
+  {name:'Body Pump',trainer:'Selvam',time:'08:00',day:'Sat',spots:1,capacity:20,category:'Strength'},
+  {name:'Meditation Flow',trainer:'Anita',time:'07:00',day:'Sun',spots:10,capacity:20,category:'Wellness'},
 ];
 
 const checkins = [
-  {time:'09:42',name:'Arjun Sharma',type:'Check-In'},
-  {time:'09:38',name:'Divya Menon',type:'Check-In'},
-  {time:'09:31',name:'Anjali Rao',type:'Check-In'},
-  {time:'09:15',name:'Suresh Das',type:'Check-In'},
-  {time:'08:55',name:'Ravi Kumar',type:'Check-In'},
+  {time:'09:42',name:'Mathan',type:'Check-In'},
+  {time:'09:38',name:'Priya',type:'Check-In'},
+  {time:'09:31',name:'Aron Dhass',type:'Check-In'},
+  {time:'09:15',name:'Sanjay Kumar',type:'Check-In'},
+  {time:'08:55',name:'Divya',type:'Check-In'},
 ];
 
 let currentFilter = 'all';
@@ -179,11 +179,11 @@ function renderReports() {
   `).join('');
 
   document.getElementById('billing-list').innerHTML = [
-    {name:'Arjun Sharma',amt:'₹4,999',date:'Apr 30'},
-    {name:'Anjali Rao',amt:'₹4,999',date:'Apr 30'},
-    {name:'Divya Menon',amt:'₹2,999',date:'Apr 29'},
-    {name:'Suresh Das',amt:'₹2,999',date:'Apr 29'},
-    {name:'Meena Pillai',amt:'₹999',date:'Apr 29'},
+    {name:'Mathan',amt:'₹4,999',date:'Apr 30'},
+    {name:'Sanjay Kumar',amt:'₹4,999',date:'Apr 30'},
+    {name:'Priya',amt:'₹2,999',date:'Apr 29'},
+    {name:'Suresh Dev',amt:'₹2,999',date:'Apr 29'},
+    {name:'Meena',amt:'₹999',date:'Apr 29'},
   ].map(b => `
     <div class="bill-row">
       <div class="bill-name">${b.name}</div>
@@ -222,10 +222,10 @@ function renderReports() {
   `).join('');
 
   document.getElementById('trainer-perf').innerHTML = [
-    {name:'Vikram Joshi',rating:'4.9',classes:12},
-    {name:'Anita Reddy',rating:'4.8',classes:10},
-    {name:'Rahul Singh',rating:'4.7',classes:8},
-    {name:'Priya Nair',rating:'4.6',classes:9},
+    {name:'Vikram',rating:'4.9',classes:12},
+    {name:'Joel Mardin',rating:'4.8',classes:10},
+    {name:'Adhityan',rating:'4.7',classes:8},
+    {name:'Anto Dass',rating:'4.6',classes:9},
   ].map(t => `
     <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1e1e1e;">
       <div class="member-avatar" style="background:rgba(232,255,0,0.1);color:var(--brand);width:32px;height:32px;font-size:11px;flex-shrink:0;">${t.name.split(' ').map(n=>n[0]).join('')}</div>
@@ -260,7 +260,7 @@ function renderCheckins() {
 }
 
 function simulateCheckin() {
-  const names = ['Sanjay Verma','Lakshmi Iyer','Deepak Pillai','Nisha Gupta','Arun Babu'];
+  const names = ['Sanjay Kumar','Divya','Mathan','Suresh Dev','Priya'];
   const name = names[Math.floor(Math.random() * names.length)];
   const now = new Date();
   const time = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
