@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">SIS<span>GAIN</span> <span style="color:#555;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:1px;">FITNESS PRO</span></div>
+  <div class="nav-links">
+    <button class="active" onclick="showPage('dashboard', this)">Dashboard</button>
+    <button onclick="showPage('members', this)">Members</button>
+    <button onclick="showPage('checkin', this)">Check-In</button>
+    <button onclick="showPage('schedule', this)">Schedule</button>
+    <button onclick="showPage('reports', this)">Reports</button>
+  </div>
+  <div class="nav-right">
+    <div class="notif-dot" onclick="showToast('3 new notifications')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </div>
+    <div class="avatar" onclick="showToast('Admin Profile')">A</div>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- DASHBOARD PAGE -->
+  <div class="page active" id="page-dashboard">
+    <div class="hero">
+      <h1>POWER YOUR <span>GYM</span><br>OPERATIONS</h1>
+      <p>SISGAIN Fitness Club Management — manage memberships, track attendance, schedule classes, and monitor performance from one intelligent platform.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showModal('addMember')">+ Add Member</button>
+        <button class="btn-outline" onclick="showPage('reports', document.querySelector('.nav-links button:nth-child(5)'))">View Reports</button>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Members</div>
+        <div class="stat-value brand" id="counter-members">0</div>
+        <div class="stat-delta">+12% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Today</div>
+        <div class="stat-value" id="counter-active">0</div>
+        <div class="stat-delta"><span class="live-dot"></span>Live</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Monthly Revenue</div>
+        <div class="stat-value" id="counter-revenue">0</div>
+        <div class="stat-delta">+8.3% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Classes Today</div>
+        <div class="stat-value" id="counter-classes">0</div>
+        <div class="stat-delta down">2 upcoming</div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="qa-btn" onclick="showModal('addMember')">
+        <div class="qa-icon">👤</div>
+        <div class="qa-label">Add Member</div>
+      </div>
+      <div class="qa-btn" onclick="showPage('checkin', document.querySelector('.nav-links button:nth-child(3)'))">
+        <div class="qa-icon">✅</div>
+        <div class="qa-label">Check-In</div>
+      </div>
+      <div class="qa-btn" onclick="showModal('addClass')">
+        <div class="qa-icon">🏋️</div>
+        <div class="qa-label">Schedule Class</div>
+      </div>
+      <div class="qa-btn" onclick="showModal('billing')">
+        <div class="qa-icon">💳</div>
+        <div class="qa-label">Billing</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Recent Members</div>
+        <div class="member-list" id="member-list-dash"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly Attendance</div>
+        <div class="attendance-bars" id="att-bars"></div>
+        <div style="margin-top:16px; display:flex; gap:16px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);">Peak Day</div>
+            <div style="font-size:18px;font-family:'Bebas Neue',sans-serif;color:var(--brand);">SATURDAY</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--muted);">Avg / Day</div>
+            <div style="font-size:18px;font-family:'Bebas Neue',sans-serif;color:var(--text);">142</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Today's Classes</div>
+        <div class="schedule-list" id="schedule-dash"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Alerts & Notifications</div>
+        <div class="alert-list" id="alerts"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEMBERS PAGE -->
+  <div class="page" id="page-members">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--brand);">MEMBERS</h2>
+        <p style="color:var(--muted);font-size:13px;">Manage all gym members and plans</p>
+      </div>
+      <button class="btn-primary" onclick="showModal('addMember')">+ Add Member</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search members by name, email, or ID..." oninput="filterMembers(this.value)" />
+      <button class="filter-chip active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-chip" onclick="setFilter('active',this)">Active</button>
+      <button class="filter-chip" onclick="setFilter('expired',this)">Expired</button>
+      <button class="filter-chip" onclick="setFilter('trial',this)">Trial</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table class="members-table">
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Plan</th>
+            <th>Join Date</th>
+            <th>Expiry</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="members-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CHECKIN PAGE -->
+  <div class="page" id="page-checkin">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--brand);">ATTENDANCE CHECK-IN</h2>
+        <p style="color:var(--muted);font-size:13px;"><span class="live-dot"></span>Real-time tracking active</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;" id="live-clock"></div>
+        <div style="font-size:12px;color:var(--muted);" id="live-date"></div>
+      </div>
+    </div>
+    <div class="checkin-scanner" onclick="simulateCheckin()">
+      <span class="scanner-icon">📷</span>
+      <div class="checkin-title">TAP TO SIMULATE CHECK-IN</div>
+      <div class="checkin-sub">Scan QR code or tap member card at terminal</div>
+    </div>
+    <div class="checkin-recent">
+      <div class="card-title" style="margin-bottom:12px;">Recent Check-Ins Today</div>
+      <div id="checkin-feed"></div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE PAGE -->
+  <div class="page" id="page-schedule">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--brand);">CLASS SCHEDULE</h2>
+        <p style="color:var(--muted);font-size:13px;">Weekly timetable for all classes and trainers</p>
+      </div>
+      <button class="btn-primary" onclick="showModal('addClass')">+ Add Class</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;" id="day-filters">
+      <button class="filter-chip active" onclick="setDayFilter('all',this)">All Days</button>
+      <button class="filter-chip" onclick="setDayFilter('Mon',this)">Mon</button>
+      <button class="filter-chip" onclick="setDayFilter('Tue',this)">Tue</button>
+      <button class="filter-chip" onclick="setDayFilter('Wed',this)">Wed</button>
+      <button class="filter-chip" onclick="setDayFilter('Thu',this)">Thu</button>
+      <button class="filter-chip" onclick="setDayFilter('Fri',this)">Fri</button>
+      <button class="filter-chip" onclick="setDayFilter('Sat',this)">Sat</button>
+      <button class="filter-chip" onclick="setDayFilter('Sun',this)">Sun</button>
+    </div>
+    <div class="card">
+      <div class="schedule-list" id="schedule-full"></div>
+    </div>
+  </div>
+
+  <!-- REPORTS PAGE -->
+  <div class="page" id="page-reports">
+    <div style="margin-bottom:24px;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:var(--brand);">REPORTS & ANALYTICS</h2>
+      <p style="color:var(--muted);font-size:13px;">Performance monitoring and business insights</p>
+    </div>
+    <div class="report-kpis">
+      <div class="kpi-card">
+        <div class="kpi-value">₹4.2L</div>
+        <div class="kpi-label">Monthly Revenue</div>
+        <div class="kpi-trend" style="color:var(--success);">↑ 8.3% vs April</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">94%</div>
+        <div class="kpi-label">Retention Rate</div>
+        <div class="kpi-trend" style="color:var(--success);">↑ 2% this quarter</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">1,284</div>
+        <div class="kpi-label">Total Members</div>
+        <div class="kpi-trend" style="color:var(--success);">+54 new this month</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Revenue (Last 6 Months)</div>
+        <div class="rev-chart" id="rev-chart"></div>
+        <div style="display:flex; gap:16px; margin-top:12px;">
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:2px;background:var(--brand);"></div><span style="font-size:12px;color:var(--muted);">Monthly Revenue</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Recent Billing</div>
+        <div class="billing-list" id="billing-list"></div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Plan Distribution</div>
+        <div style="display:flex; flex-direction:column; gap:10px;" id="plan-dist"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Top Classes by Attendance</div>
+        <div style="display:flex; flex-direction:column; gap:8px;" id="top-classes"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Trainer Performance</div>
+        <div style="display:flex; flex-direction:column; gap:10px;" id="trainer-perf"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-content" style="position:relative;">
+    <button class="close-btn" onclick="closeModalDirect()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
